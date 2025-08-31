@@ -21,7 +21,7 @@ An app that uploads PDFs/images, extracts text (PDF parse + OCR with Tesseract),
    - **Ubuntu/Debian**: `sudo apt-get update && sudo apt-get install -y tesseract-ocr`
 3. Create & activate a virtual environment (recommended)
 4. Install deps: `pip install -r requirements.txt`
-5. Run: `streamlit run app.py`
+5. Run: `streamlit run streamlit_app.py`
 
 ## Usage
 - Upload files in the sidebar, click **Process Files**
@@ -43,7 +43,7 @@ Create a repo with this project, then deploy the container to a PaaS.
    - Expose port `8501`
    - Set root command to:
      ```
-     streamlit run app.py --server.port=$PORT --server.address=0.0.0.0
+     streamlit run streamlit_app.py --server.port=$PORT --server.address=0.0.0.0
      ```
 
 ### Option B: VM (Ubuntu)
@@ -51,7 +51,7 @@ Create a repo with this project, then deploy the container to a PaaS.
 sudo apt-get update && sudo apt-get install -y python3-venv tesseract-ocr
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-streamlit run app.py --server.address=0.0.0.0 --server.port=8501
+streamlit run streamlit_app.py --server.address=0.0.0.0 --server.port=8501
 ```
 
 > **Note**: Streamlit Cloud does not provide apt packages, so installing `tesseract-ocr` there is non-trivial. Prefer Docker/VM PaaS for this app.
@@ -111,5 +111,5 @@ address = "0.0.0.0"\n\
 port = 8501\n\
 EOF'
 
-CMD ["bash", "-lc", "streamlit run app.py --server.port=$PORT --server.address=0.0.0.0"]
+CMD ["bash", "-lc", "streamlit run streamlit_app.py --server.port=$PORT --server.address=0.0.0.0"]
 
