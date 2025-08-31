@@ -36,13 +36,20 @@ APP_DESC = (
 
 # ----------------------------- 
 # Utils
+from pdf2image import convert_from_bytes
+
 def extract_text_from_pdf(pdf_bytes: bytes) -> str:
     text_chunks = []
     with fitz.open(stream=pdf_bytes, filetype="pdf") as doc:
         for page in doc:
-            text = page.get_text("text")
+            text = page.get_text("text").strip()
+            if not text:  # If no text detected, convert page to image and OCR
+                pix = page.get_pixmap()
+                img_bytes = pix.tobytes("png")
+                text = extract_text_from_image(img_bytes)
             text_chunks.append(text)
     return "\n".join(text_chunks).strip()
+
 
 
 def preprocess_image(img: Image.Image) -> Image.Image:
