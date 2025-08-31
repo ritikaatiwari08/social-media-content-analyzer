@@ -297,6 +297,14 @@ import streamlit as st
 import fitz  # PyMuPDF
 from PIL import Image, ImageFilter, ImageOps
 import pytesseract
+import os
+
+# Set Tesseract path depending on environment
+if "TESSERACT_PATH" in os.environ:
+    pytesseract.pytesseract.tesseract_cmd = os.environ["TESSERACT_PATH"]
+else:
+    # default for Streamlit Cloud
+    pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 
 
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
@@ -304,7 +312,6 @@ import numpy as np
 
 # ---------------- OCR & Sentiment Setup ----------------
 # Set Tesseract path (Streamlit Cloud / Linux)
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 
 # Test Tesseract (optional)
